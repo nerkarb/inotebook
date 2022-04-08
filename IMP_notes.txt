@@ -1,0 +1,12 @@
+Node project innition command
+
+- npm init
+
+//install express
+
+- npm i express
+
+
+//install mongoes
+
+- npm i mongoose
