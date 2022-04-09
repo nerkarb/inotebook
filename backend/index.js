@@ -7,7 +7,7 @@ connectToMongo();
 //innilize express
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 
 //use body
 app.use(express.json());

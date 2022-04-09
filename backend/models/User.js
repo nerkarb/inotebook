@@ -20,5 +20,5 @@ const UserSchema = new Schema({
   //single value insert in DB
   const User = mongoose.model('user',UserSchema);
   //create indexes
-  User.createIndexes();
+  //User.createIndexes();
   module.exports = User;
