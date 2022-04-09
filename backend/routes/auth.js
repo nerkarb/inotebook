@@ -16,7 +16,10 @@ const { Router } = require("express");
 //AUthentication token
 const JWT_SECRET = "SecretToekn$"
 
-//create user using POST : "/api/auth/createUser" = no login required
+//import fetchuser middleware
+const fetchUser = require('../middleware/fetchUser')
+
+//ROUTE -1 : create user using POST : "/api/auth/createUser" = no login required
 router.post(
   "/createUser",
   [
@@ -75,7 +78,7 @@ router.post(
   }
 );
 
-//AUthenticate user  using POST "api/auth/login" 
+//ROUTE - 2 : AUthenticate user  using POST "api/auth/login" 
 
 
 router.post("/login",
@@ -122,4 +125,24 @@ router.post("/login",
                 res.status(500).send("Internal server error");
             }
             })
+
+//ROUTE - 3 : Get user details using POST : "/api/auth/getUser" =  login required
+
+router.post("/getUser",
+            fetchUser,
+            async (req,res)=>{
+            try {
+                //get userId
+                const userId = req.user.id;
+                console.log(userId)
+                //select all the fields ecept the password
+                    const user = await User.findById(userId).select("-password")
+                    //send user data
+                    res.send(user)
+                
+            } catch (error) {
+                console.log(error.message);
+                res.status(500).send("Internal server error");
+            }
+     })
 module.exports = router;
