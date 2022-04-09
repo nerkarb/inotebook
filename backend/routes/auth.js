@@ -3,18 +3,37 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 
+//validation for values
+const { body, validationResult } = require('express-validator');
 
 
 //create user using POST : "/api/auth/"
-router.post("/" ,(req,res)=>{
+router.post("/" , [
+                    body('name','Einter valid name.').isLength({ min: 3 }),
+                    body('email','Einter valid e-mail.').isEmail(),
+                    body('password','Einter valid password.').isLength({ min: 5 }) 
+                ],(req,res)=>{
 
-    const user = User(req.body)
-    user.save()
+                    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    //save values oin DB
+    User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+      }).then(user => res.json(user))
+      //handle the duplicate value
+      .catch(err=>{console.log(err)
+      res.json({error : "Email already used", message:err.message})})
 
-    console.log(req.body)
-    console.log("Hello")     
-    //res.json(obj)
-    res.send(req.body)
+
+    // const user = User(req.body)
+    // user.save()
+
+   
 })
 
 module.exports = router

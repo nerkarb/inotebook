@@ -17,4 +17,8 @@ const UserSchema = new Schema({
     }
   });
 
-  module.exports = mongoose.model('user',UserSchema);
+  //single value insert in DB
+  const User = mongoose.model('user',UserSchema);
+  //create indexes
+  User.createIndexes();
+  module.exports = User;
