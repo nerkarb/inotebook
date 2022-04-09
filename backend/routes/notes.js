@@ -54,6 +54,36 @@ router.post("/addNote" ,
                 console.log(error.message);
                 res.status(500).send("Internal server error");
             }
-})
+    })
 
+//ROUTE - 3 : Update an  existing notes POST : "/api/notes/updateNote" =  login required
+router.put("/updateNote/:id" ,  
+            fetchUser, 
+            // [
+            //     body("title", "Einter valid title.").isLength({ min: 3 }),
+            //     body("description", "description must be at least 5 charecter").isLength({ min: 5 }),
+            //     body("tag", "Einter valid tag.").isLength({ min: 3 }),
+            // ],
+            async (req,res)=>{
+             const {title, description, tag} = req.body
+             //crete new note object 
+             const newNotes = {};
+             if(title){ newNotes.title = title }
+             if(description){ newNotesdescription = description }
+             if(tag){ newNotes.tag = tag }
+               
+            //find the note to be updated and upfdate it 
+
+            let note = await Notes.findById(req.params.id)
+            //check nots is not exist
+            if(!note){
+               return  res.status(404).send("Not found")
+            }
+             //check user is valid or note
+             if(note.user.toString() !== req.user.id){
+                return res.status(401).send("Not Allowwed")
+             }
+             note = await   Notes.findByIdAndUpdate(req.params.id, {$set :  newNotes}, {new : true})
+             res.json({note})
+       })
 module.exports = router
