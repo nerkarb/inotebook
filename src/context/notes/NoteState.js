@@ -22,7 +22,34 @@ const NoteState = (props) =>{
           "tag": "personal",
           "date": "2022-04-09T19:01:32.073Z",
           "__v": 0
-        }
+        },
+        {
+            "_id": "6251d80cdad435b9c72e8862",
+            "user": "6251a3c10196acdd471ddeb6",
+            "title": "My title",
+            "description": "New notes",
+            "tag": "personal",
+            "date": "2022-04-09T19:01:32.073Z",
+            "__v": 0
+          },
+          {
+            "_id": "6251d80cdad435b9c72e8862",
+            "user": "6251a3c10196acdd471ddeb6",
+            "title": "My title",
+            "description": "New notes",
+            "tag": "personal",
+            "date": "2022-04-09T19:01:32.073Z",
+            "__v": 0
+          },
+          {
+            "_id": "6251d80cdad435b9c72e8862",
+            "user": "6251a3c10196acdd471ddeb6",
+            "title": "My title",
+            "description": "New notes",
+            "tag": "personal",
+            "date": "2022-04-09T19:01:32.073Z",
+            "__v": 0
+          }
       ]
 
       const[notes,setNotes] = useState(notesInitials)
