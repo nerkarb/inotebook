@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useState } from "react";
 
 import {
   BrowserRouter as Router,
@@ -6,26 +7,27 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Home from "./components/Home";
+import NoteState from "./context/notes/NoteState";
 
 function App() {
   return (
-    <>
-    <div className="App">
-      <Router>
-        <Navbar />
-   
+      <NoteState>
+        <Router>
+          <Navbar />
 
-        <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
 
-          <Route exact path="/about" element={<About />} />
-        </Routes>
-      </Router>
-    </div>
-    </>
+            <Route exact path="/about" element={<About />} />
+          </Routes>
+        </Router>
+        </NoteState>
+      
+    
   );
 }
 
