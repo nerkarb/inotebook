@@ -140,6 +140,7 @@ const Notes = () => {
             <u>Your note</u>
           </i>
         </h2>
+        
         {notes.map((note) => {
           return (
             <NoteItem key={note._id} note={note} updateNote={()=>{updateNote(note)}} />

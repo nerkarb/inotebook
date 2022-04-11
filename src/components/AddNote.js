@@ -11,6 +11,7 @@ function AddNote() {
   const handleAddNote=(e)=>{
     e.preventDefault()
     addNote(note.title,note.description,note.tag);
+    setNote({"title":"","description":"","tag":""})
     
   }
   //onchage handle
@@ -26,16 +27,17 @@ function AddNote() {
         <form>
             <div className="mb-3">
             <label htmlFor="title" className="form-label">Title</label>
-            <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" onChange={onChange} />
+            <input type="text" className="form-control" id="title" name='title' aria-describedby="emailHelp" onChange={onChange}
+            value={note.title} />
             
             </div>
             <div className="mb-3">
             <label htmlFor="Description" className="form-label">Description</label>
-            <input type="text" className="form-control" id="description" name="description" onChange={onChange}/>
+            <input type="text" className="form-control" id="description" name="description" onChange={onChange}  value={note.description} />
             </div>
             <div className="mb-3 ">
             <label htmlFor="tag" className="form-label">Tag</label>
-            <input type="text" className="form-control" id="tag" name="tag" onChange={onChange}/>
+            <input type="text" className="form-control" id="tag" name="tag" onChange={onChange}  value={note.tag} />
             </div>
             <button type="submit" className="btn btn-primary" onClick={handleAddNote}>ADD NOTE</button>
         </form>
