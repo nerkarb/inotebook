@@ -37,7 +37,7 @@ function AddNote() {
             <label htmlFor="tag" className="form-label">Tag</label>
             <input type="text" className="form-control" id="tag" name="description" onChange={onChange}/>
             </div>
-            <button type="submit" className="btn btn-primary" onClick={handleAddNote}>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={handleAddNote}>ADD NOTE</button>
         </form>
         </div>
         </div>
