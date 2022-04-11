@@ -1,12 +1,16 @@
-import React,{ useContext } from 'react'
+import React,{ useContext, useEffect, useLayoutEffect } from 'react'
 
 import noteContext from "../context/notes/noteContext"
 import AddNote from './AddNote';
 import NoteItem from './NoteItem';
-function Notes() {
+const Notes = ()=> {
      //notes take from NOtesstate context
   const  context = useContext(noteContext)
-  const {notes,setNotes} = context;
+  const {notes,getNotes} = context;
+  //display updated notes
+  useEffect(()=>{
+      getNotes()
+  },[])
   return (
     <>
     <AddNote />

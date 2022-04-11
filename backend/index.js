@@ -9,6 +9,10 @@ const express = require('express')
 const app = express()
 const port = 5000
 
+//cors file
+var cors = require('cors') 
+app.use(cors())
+
 //use body
 app.use(express.json());
 
