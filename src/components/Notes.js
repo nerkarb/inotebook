@@ -6,7 +6,13 @@ import NoteItem from "./NoteItem";
 const Notes = () => {
   //notes take from NOtesstate context
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
+  //referance to modal
+  const ref = useRef(null);
+  const refClose = useRef(null);
+  //usestate
+  const [note,setNote] = useState({id:"",etitle:"",edescription:"",etag:""})
+
   //display updated notes
   useEffect(() => {
     getNotes();
@@ -14,19 +20,18 @@ const Notes = () => {
   //update note
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
+    console.log(currentNote._id)
+    setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
   };
-  //referance to modal
-  const ref = useRef(null);
+  
   
   const handleUpdateNote=(e)=>{
-    e.preventDefault()
-    console.log("Update")
+    editNote(note.id, note.etitle, note.edescription,note.etag)
+    refClose.current.click()
     
     
   }
-  //usestate
-  const [note,setNote] = useState({etitle:"",edescription:"",etag:""})
+  
   //onchage handle
   const onChange = (e) =>{
       //spered syntax
@@ -114,7 +119,7 @@ const Notes = () => {
               {/* fORM END */}
             </div>
             <div class="modal-footer">
-              <button
+              <button  ref={refClose}
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"

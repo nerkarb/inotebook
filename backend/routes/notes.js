@@ -75,7 +75,7 @@ router.put(
       newNotes.title = title;
     }
     if (description) {
-      newNotesdescription = description;
+      newNotes.description = description;
     }
     if (tag) {
       newNotes.tag = tag;
