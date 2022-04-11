@@ -42,7 +42,11 @@ function Navbar() {
             
            
           </ul>
-         
+          <form class="d-flex">
+          <Link class="btn btn-primary mx-2" to="/login" role="button">Login</Link>
+          <Link class="btn btn-primary mx-2" to="/signup" role="button">Sign Up</Link>
+      
+      </form>
         </div>
       </div>
     </nav>
