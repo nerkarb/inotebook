@@ -11,7 +11,7 @@ function AddNote() {
   const handleAddNote=(e)=>{
     e.preventDefault()
     addNote(note.title,note.description,note.tag);
-    console.log("CLICK event")
+    
   }
   //onchage handle
   const onChange = (e) =>{
@@ -35,7 +35,7 @@ function AddNote() {
             </div>
             <div className="mb-3 ">
             <label htmlFor="tag" className="form-label">Tag</label>
-            <input type="text" className="form-control" id="tag" name="description" onChange={onChange}/>
+            <input type="text" className="form-control" id="tag" name="tag" onChange={onChange}/>
             </div>
             <button type="submit" className="btn btn-primary" onClick={handleAddNote}>ADD NOTE</button>
         </form>

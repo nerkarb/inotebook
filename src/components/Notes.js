@@ -1,28 +1,148 @@
-import React,{ useContext, useEffect, useLayoutEffect } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useRef,useState } from "react";
 
-import noteContext from "../context/notes/noteContext"
-import AddNote from './AddNote';
-import NoteItem from './NoteItem';
-const Notes = ()=> {
-     //notes take from NOtesstate context
-  const  context = useContext(noteContext)
-  const {notes,getNotes} = context;
+import noteContext from "../context/notes/noteContext";
+import AddNote from "./AddNote";
+import NoteItem from "./NoteItem";
+const Notes = () => {
+  //notes take from NOtesstate context
+  const context = useContext(noteContext);
+  const { notes, getNotes } = context;
   //display updated notes
-  useEffect(()=>{
-      getNotes()
-  },[])
+  useEffect(() => {
+    getNotes();
+  }, []);
+  //update note
+  const updateNote = (currentNote) => {
+    ref.current.click();
+    setNote({etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
+  };
+  //referance to modal
+  const ref = useRef(null);
+  
+  const handleUpdateNote=(e)=>{
+    e.preventDefault()
+    console.log("Update")
+    
+    
+  }
+  //usestate
+  const [note,setNote] = useState({etitle:"",edescription:"",etag:""})
+  //onchage handle
+  const onChange = (e) =>{
+      //spered syntax
+        setNote({...note, [e.target.name]:e.target.value})
+  }
   return (
     <>
-    <AddNote />
-      <div className="row my-3">
-      <h2><i  style={{color:"green"}}><u>Your note</u></i></h2>
-      {notes.map((note)=>{
-        return <NoteItem key={note._id} note={note}/>
-      })}
+      <AddNote />
+
+      <button
+        type="button"
+        ref={ref}
+        className="btn btn-primary d-none"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Launch demo modal
+      </button>
+
+      <div
+        className="modal fade "
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Edit Modal
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              {/* Note form */}
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="etitle"
+                    name="etitle"
+                    aria-describedby="emailHelp"
+                    value={note.etitle}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="Description" className="form-label">
+                    Description
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="edescription"
+                    name="edescription"
+                    value={note.edescription}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="mb-3 ">
+                  <label htmlFor="tag" className="form-label">
+                    Tag
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="etag"
+                    name="etag"
+                    value={note.etag}
+                    onChange={onChange}
+                  />
+                </div>
+                
+              </form>
+              {/* fORM END */}
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" onClick={handleUpdateNote} class="btn btn-primary">
+                UPDATE NOTE
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      </>
 
-  ) 
-}
+      <div className="row my-3">
+        <h2>
+          <i style={{ color: "green" }}>
+            <u>Your note</u>
+          </i>
+        </h2>
+        {notes.map((note) => {
+          return (
+            <NoteItem key={note._id} note={note} updateNote={()=>{updateNote(note)}} />
+          );
+        })}
+      </div>
+    </>
+  );
+};
 
-export default Notes
+export default Notes;
