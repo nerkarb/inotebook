@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useLayoutEffect, useRef,useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import noteContext from "../context/notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
 const Notes = (props) => {
     const {showAlert} = props
+    //navoigation
+    const navigate = useNavigate()
   //notes take from NOtesstate context
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
@@ -16,7 +19,19 @@ const Notes = (props) => {
 
   //display updated notes
   useEffect(() => {
-    getNotes();
+      //check valid user
+     
+      console.log(localStorage.getItem("token"))
+      if(localStorage.getItem("token")){
+        console.log(localStorage.getItem("token"))
+        getNotes();
+       
+      }
+      else{
+        console.log(localStorage.getItem("token"))
+          navigate('/login')
+      }
+    
   }, []);
   //update note
   const updateNote = (currentNote) => {

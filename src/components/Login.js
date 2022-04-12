@@ -31,20 +31,24 @@ const Login = (props) => {
       }),
     });
     const json = await response.json();
+    console.log(json)
     if (json.success) {
       //save the auth token and redirect redirect
-      localStorage.setItem("token", json.authtoken);
+      console.log(json.authToken)
+      localStorage.setItem("token", json.authToken);
+      console.log(localStorage.getItem("token"))
       navigate("/")
       props.showAlert("Welcome to i-Notebook", "success")
     } else {
       //alert
       props.showAlert("Invalid Credencials for login", "success")
     }
-    console.log(json);
+    //console.log(json);
   };
 
   return (
     <div className="container">
+      <h2 style={{"color":"purple"}}>Login to continue to <i style={{"color":"red"}}>i</i><i style={{"color":"blue"}}>Notebook</i></h2>
       <form onSubmit={handlesubmit}>
         <div className="mb-3">
    
