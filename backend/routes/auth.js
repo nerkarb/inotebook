@@ -28,10 +28,11 @@ router.post(
     body("password", "Einter valid password.").isLength({ min: 5 }),
   ],
   async (req, res) => {
+    let success = false;
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
     //try catch blocks
     try {
@@ -41,7 +42,7 @@ router.post(
       if (user) {
         return res
           .status(404)
-          .json({ error: "SOrry user with this email is exist" });
+          .json({success, error: "SOrry user with this email is exist" });
       }
       //define secpassword to encrpty the password
       const salt = await bcrypt.genSalt(10)
@@ -70,7 +71,8 @@ router.post(
       // const user = User(req.body)
       // user.save()
     //   res.json(user);
-    res.json({authToken})
+    success=true;
+    res.json({success,authToken})
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal server error");
