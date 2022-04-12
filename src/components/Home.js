@@ -4,13 +4,13 @@ import Notes from './Notes'
 
 
 
-function Home() {
- 
+const  Home = (props) => {
+ const {showAlert} =props;
   return (
     <div>
       
       {/* Notes component added */}
-      <Notes />
+      <Notes showAlert={showAlert}/>
     </div>
   )
 }

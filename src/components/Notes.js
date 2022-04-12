@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useLayoutEffect, useRef,useState } from "
 import noteContext from "../context/notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
-const Notes = () => {
+const Notes = (props) => {
+    const {showAlert} = props
   //notes take from NOtesstate context
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
@@ -22,12 +23,15 @@ const Notes = () => {
     ref.current.click();
     console.log(currentNote._id)
     setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
+    
   };
   
   
   const handleUpdateNote=(e)=>{
     editNote(note.id, note.etitle, note.edescription,note.etag)
     refClose.current.click()
+    
+    props.showAlert("Update  Successfully","primary")
     
     
   }
@@ -39,7 +43,7 @@ const Notes = () => {
   }
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={showAlert}/>
 
       <button
         type="button"
@@ -143,7 +147,7 @@ const Notes = () => {
         
         {notes.map((note) => {
           return (
-            <NoteItem key={note._id} note={note} updateNote={()=>{updateNote(note)}} />
+            <NoteItem key={note._id} note={note} updateNote={()=>{updateNote(note)}} showAlert={showAlert}/>
           );
         })}
       </div>
